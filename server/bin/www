@@ -1,0 +1,189 @@
+#!/usr/bin/env node
+
+require('babel-register')({
+    presets: [ 'env' ],
+    plugins: ["transform-es2015-destructuring", "transform-object-rest-spread"]
+});
+
+/**
+    * Module dependencies.
+    */
+
+const app = require('../app');
+const debug = require('debug')('server:server');
+const http = require('http');
+const mongoose = require('mongoose');
+
+const Topic = require('../models/topic');
+const Message = require('../models/message');
+
+function createTopic({title}, client) {
+    const topic = new Topic({
+        title
+    });
+
+    return topic
+        .save()
+        .then(result => {
+            io.emit('topics', {...result._doc});
+        })
+        .catch(err => {
+            throw err;
+        });
+}
+
+function subscribeToTopics(client) {
+    return Topic.find()
+        .then(topics => {
+            return topics.map(topic => {
+                client.emit('topics', {...topic._doc});
+            });
+        });
+}
+
+function publishMessage({text, pros, topicId}, client) {
+    const message = new Message({
+        text,
+        pros,
+        concernedTopic: topicId
+    });
+
+    return message
+        .save()
+        .then(result => {
+            return Topic.findById(topicId)
+                .then((topic) => {
+                    topic.publishedMessages.push(result);
+                    topic.save();
+                        // .then((savedTopic) => {
+                            // io.emit('topics', { ...savedTopic._doc })
+                        // });
+                    io.emit(`messages:${topicId}`, {...result._doc});
+                });
+        })
+        .catch(err => {
+            throw err;
+        });
+}
+
+function subscribeToRoom({topicId}, client) {
+    return Message.find({concernedTopic: topicId})
+        .then(messages => {
+            return messages.map(message => {
+                io.emit(`messages:${topicId}`, {...message._doc});
+            });
+        });
+}
+
+/**
+    * Get port from environment and store in Express.
+    */
+
+const port = normalizePort(process.env.PORT || '3003');
+app.set('port', port);
+
+/**
+    * Create HTTP server.
+    */
+
+const server = http.createServer(app);
+const io = require('socket.io').listen(server);
+
+/**
+    * Listen on provided port, on all network interfaces.
+    */
+
+mongoose.connect('mongodb://localhost:27017/cpa4', { useNewUrlParser: true })
+    .then(() => {
+        server.listen(port);
+    })
+    .then(() => {
+        io.on('connection', client => {
+            client.on('subscribeToTimer', interval => {
+                setInterval(() => {
+                    client.emit('timer', new Date());
+                }, interval);
+            });
+
+            client.on('createTopic', ({title}) => {
+                createTopic({title}, client);
+            });
+
+            client.on('subscribeToTopics', () => {
+                subscribeToTopics(client);
+            });
+
+            client.on('publishMessage', ({text, pros, topicId}) => {
+                publishMessage({text, pros, topicId}, client);
+            });
+
+            client.on('subscribeToRoom', ({topicId}) => {
+                subscribeToRoom({topicId}, client);
+            });
+        });
+    })
+    .catch(err => {
+        throw err;
+    });
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+    * Normalize a port into a number, string, or false.
+    */
+
+function normalizePort(val) {
+    const port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+    * Event listener for HTTP server "error" event.
+    */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    const bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+   * Event listener for HTTP server "listening" event.
+   */
+
+function onListening() {
+    const addr = server.address();
+    const bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}

@@ -1,0 +1,371 @@
+@import url(http://fonts.googleapis.com/css?family=Fredericka+the+Great|EB+Garamond);
+
+body {
+    background: url(../images/bg.png) #fc0;
+    font-size: 16px;
+}
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+  min-width: 320px;
+  overflow: hidden;
+}
+.wrapper__top {
+    max-width: 1024px;
+    margin: 0 auto;
+    background: #5622a1;
+    background: url(../images/bg-border.png) repeat-x #fff;
+    padding-top: 42px;
+}
+/*header*/
+header {
+    display: flex;
+    justify-content: center;
+    background: url(../images/RqTd.gif) repeat-x #fff  0 100%;
+    position: relative;
+}
+
+.btn-logout {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1.5em;
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 21px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+h1 {
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+    background: linear-gradient( blue, red);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 10rem;
+    margin: 0.3em 0 0.5em;
+    -webkit-animation: shake .7s linear alternate infinite;
+    animation: shake .7s linear alternate infinite;
+}
+
+@-webkit-keyframes shake {
+  100% {
+    -webkit-transform: translateX(-30px);    
+  }
+}
+@keyframes shake {
+  100% {
+    transform: translateX(-30px);    
+  }
+}
+
+/* ---------
+    main
+-------------*/
+
+/*themes form section*/
+.form-title {
+    background: url(http://2.bp.blogspot.com/-mvoZS1oSdK8/TktsiBc4voI/AAAAAAAACLQ/MKaAYSFJvlo/s00/romashki.jpg) 100% 50%;
+    background-size: cover;
+}
+
+.form-title div {
+    color: #000;
+    background: #5ff;
+    mix-blend-mode: lighten;
+    position: relative;
+    font-size: 400%;
+    line-height: 100%;
+    text-align: center;
+    padding: 50px 0;
+    border: 16px dashed;
+}
+.theme-form {
+    background: #5622a1;
+    border: 4px dashed #fc0;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+textarea,
+.theme-form input[type="text"] {
+    display: block;
+    width: 50%;
+    border: 1px solid #0af1de;
+    box-shadow: 4px 4px 1px #000;
+}
+.theme-form input[type="submit"] {
+    background: #0af1de;
+    border-color: #0af1de;
+    color: #fff;
+    box-shadow: 4px 4px 1px #000;
+    height: 60px;
+    width: 30%;
+    font-size: 30px;
+    cursor: pointer;
+}
+.welcome-block {
+  background: #ccc url(../images/bg-border.png) repeat-x;
+  text-align: center;
+  font-size: 2.2em;
+  line-height: 1.5em;
+  height: 30vh;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-weight: bold;
+  padding: 90px 20px 45px;
+}
+.welcome-block h3 {
+  position: relative;
+  margin: 0 0 1em;
+}
+.welcome-block p{
+  margin: 0;
+  position: relative;
+  text-shadow: 1px 1px 5px #fff;
+}
+.welcome-block::before {
+  content: "FREEDOM";
+  position: absolute;
+  background: linear-gradient( blue, red);
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-transform: rotateZ(-20deg);
+  -ms-transform: rotateZ(-20deg);
+  transform: rotateZ(-20deg);
+  font-size: 7em;
+  line-height: 1em;
+  opacity: 0.8;
+}
+
+/*themes-list section*/
+.bg-gif {
+    background: url(../images/Low_FPS.gif);
+    background-size: cover;
+}
+.title-start{
+    padding:25px;
+    overflow: hidden;
+}
+.title-start strong{
+    display: block;
+    font-size: 80px;
+     font-family: 'sonos-logoregular';
+     text-align: center;
+     background: -webkit-linear-gradient(left, #33235B, #fc020e, #fc0, #fc02e7, #02fc60);
+     background: linear-gradient(left, #33235B, #fc020e, #fc0, #fc02e7, #02fc60);
+     background-size: 3200px 200px;
+     color: transparent;
+     -webkit-background-clip: text;
+     -webkit-animation: title-start;
+     -webkit-animation-delay: 0;
+     -webkit-animation-duration: 7s;
+     -webkit-animation-timing-function: linear;
+     -webkit-animation-iteration-count: infinite;
+     -webkit-animation-fill-mode: forwards;
+     transition: font-size 500ms ease-in-out;
+     overflow: hidden;
+}
+@-webkit-keyframes title-start {
+    0% {
+        background-position: 0 3200px;
+    }
+    100% {
+        background-position: 3200px 0;
+    }
+}
+.themes-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0 0 25px;
+  width: 660px;
+  counter-reset: li;
+  overflow: hidden;
+}
+.themes-list li {
+  border-bottom: dashed 1px #006699;
+  margin-top: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  padding: 5px;
+  background-color: #fff;
+}
+.themes-list li:first-child {
+  margin-top: 0;
+}
+.themes-list span {
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  line-height: 30px;
+  color: #3A3A3A;
+  font-family: 'EB Garamond', serif;
+  font-size: 20px;
+}
+.themes-list span:before {
+  display: inline-block;
+  content: counter(li);
+  counter-increment: li;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  border: solid 1px #dedede;
+  margin-right: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 0, 0, 0.1) inset;
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 24px;
+  -webkit-transition: .4s linear;
+  transition: .4s linear;
+}
+.themes-list span:hover:before {
+  color:#D72F2C;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+/*theme content section*/
+.theme-chat-title {
+    font: bold 5rem/1.25 "arial";
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    padding: 50px 70px 80px;
+    background-color: #6cfafc;
+    text-shadow: -10px 10px 0px #00e6e6, -20px 20px 0px #01cccc, -30px 30px 0px #00bdbd;
+}
+.theme-content {
+    padding: 74px 0 0;
+    background: url(../images/bg-fish.png) repeat-x #fff;
+    position: relative;
+}
+.chat-list {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: url(../images/bg-chat.jpg);
+}
+.chat-list li{
+  display: flex;
+  padding-bottom: 3px;
+
+}
+.chat-list li div {
+  padding: 10px;
+  max-width: 50%;
+  box-sizing: border-box;
+  padding-left: 42px;
+  background-image: url(../images/bg-border2.png);
+  background-repeat: no-repeat;
+}
+li.yes {
+  text-align: right;
+  justify-content: flex-end;
+}
+li.yes div {
+  background-color: green;
+}
+li.yes .user-name {
+  color: blue;
+}
+li.yes span {
+  text-align: left;
+}
+li.no {
+  text-align: left;
+}
+li.no div {
+  background-color: #fa0942;
+}
+li.no .user-name {
+  color: yellow;
+}
+.chat-list__title{
+  display: flex;
+}
+.chat-list__title strong {
+  width: 50%;
+  border: 4px ridge #093cfa;
+  background-color: #09fa31;
+  text-align: center;
+  font-size: 2em;
+}
+.chat-list__title strong:first-child {
+  background-color: #fa0942;
+}
+
+footer {
+  background-image: url(../images/Mario_1.gif);
+  height: 300px;
+}
+@media (max-width: 768px) {
+    header {
+      background: none;
+    }
+    h1 {
+      font-size: 4rem;
+    }
+    .form-title {
+      background: none;
+    }
+    .form-title div {
+      mix-blend-mode: inherit;
+      font-size: 2em;
+      padding: 20px 0;
+    }
+    .theme-form {
+      display: block;
+    }
+    textarea,
+    .theme-form input[type="text"] {
+      display: block;
+      width: 100%;
+      margin: 0 0 0.5em;
+      min-height: 3em;
+      box-sizing: border-box;
+    }
+    .theme-form input[type="submit"] {
+      width: 100%;
+    }
+    .welcome-block {
+      height: auto;
+      min-height: initial;
+      font-size: 20px;
+    }
+    .welcome-block::before {
+      display: none;
+    }
+    .welcome-block h3 {
+      font-size: 1.6em;
+      background: -webkit-linear-gradient(left, #33235B, #fc020e, #fc0, #fc02e7, #02fc60);
+     background: linear-gradient(left, #33235B, #fc020e, #fc0, #fc02e7, #02fc60);
+     background-size: 3200px 200px;
+     color: transparent;
+     -webkit-background-clip: text;
+     -webkit-animation: title-start;
+     -webkit-animation-delay: 0;
+     -webkit-animation-duration: 7s;
+     -webkit-animation-timing-function: linear;
+     -webkit-animation-iteration-count: infinite;
+     -webkit-animation-fill-mode: forwards;
+     transition: font-size 500ms ease-in-out;
+     overflow: hidden;
+    }
+    .title-start strong {
+        font-size: 3em;
+    }
+    footer {
+      height: 134px;
+      background-size: 50% 100%;
+    }
+    .btn-logout {
+      font-size: 1em;
+      padding: 8px 20px;
+    }
+    .theme-chat-title {
+      font-size: 3rem;
+    }
+}
